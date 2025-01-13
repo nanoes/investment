@@ -1,0 +1,18 @@
+{% extends 'admin/formPage.html.twig' %}
+{% if categorieForm.vars.value %} {% set title = "Modifier categorie" %} {% else %} {% set title = "Nouvelle catégorie" %} {% endif%}
+
+{% block Item %} <a href="{{ path('app_admin_categories') }}">Liste des categories</a> >> {{ title }}{% endblock %}
+{% block formContent %}
+    <div class="x_content">
+        {{ form_start(categorieForm) }}
+        {{ form_widget(categorieForm) }}
+        <div class="ln_solid"></div>
+        <div class="item form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <a class="btn btn-warning" href="{{ path('app_admin_categories') }}">Annuler</a>
+                <button type="submit" name="valider" class="btn btn-success">Enregistrer</button>
+            </div>
+        </div>
+        {{ form_end(categorieForm) }}
+    </div>
+{% endblock %}

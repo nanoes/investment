@@ -1,0 +1,30 @@
+{% extends 'admin/formPage.html.twig' %}
+{% if blogForm.vars.value.id > 0 %} {% set title = "Modifier poste" %} {% else %} {% set title = "Nouveau poste" %} {% endif%}
+
+{% block Item %} <a href="{{ path('app_admin_blogPosts') }}">Liste des postes du blog</a> >> {{ title }}{% endblock %}
+
+{% block formContent %}
+    <h2> Blog &nbsp;&nbsp;&nbsp; {% if blogForm.vars.value.id is not empty and is_granted("ROLE_LIST_HISTORYBLOG") %} <a href="{{ path('app_admin_historique_blogPost', {'id': blogForm.vars.value.id}) }}" class="btn btn-primary">Voir l'historique <i class="fa fa-history"></i></a>{% endif %}</h2>
+    <div class="x_content">
+        {{ form_start(blogForm) }}
+        {{ form_widget(blogForm) }}
+
+        {% if blogForm.vars.value.blogImage is not empty %}
+            <div class="item form-group">
+                Image
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <img src="{{ asset('images/Blog/'~blogForm.vars.value.blogImage)|imagine_filter("keep_ratio_thumbnail_small") }}" alt="">
+                </div>
+            </div>
+        {% endif %}
+        <div class="ln_solid"></div>
+        <div class="item form-group">
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <a class="btn btn-warning" href="{{ path('app_admin_blogPosts') }}">Annuler</a>
+                <button type="submit" name="valider" class="btn btn-success">Enregistrer</button>
+            </div>
+        </div>
+        {{ form_end(blogForm) }}
+    </div>
+{% endblock %}
+
